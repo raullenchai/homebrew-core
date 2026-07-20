@@ -4,6 +4,7 @@ class Darkice < Formula
   url "https://github.com/rafael2k/darkice/archive/refs/tags/v1.6.tar.gz"
   sha256 "52807d887d60646776110b63543d3845ebe9ed52d3eea44bed7c4bdd95b6575e"
   license "GPL-3.0-or-later"
+  revision 1
 
   livecheck do
     url :stable
