@@ -3,10 +3,9 @@ class RapidMlx < Formula
 
   desc "Fast local AI engine for Apple Silicon with an OpenAI-compatible API"
   homepage "https://github.com/raullenchai/Rapid-MLX"
-  url "https://files.pythonhosted.org/packages/36/52/38cda5d432bbc0738863790c43513e96add4209c5d5fe3505d4f9e85d892/rapid_mlx-0.15.7.tar.gz"
-  sha256 "b5ad90eab4ad17b558a95438edbf5fed3146a332971c08998a41685c5f426b1b"
+  url "https://files.pythonhosted.org/packages/88/b0/b247b4da74a54b16d1133e9fdb62febf5011a38f8f353a3ad9e8a5f46bc8/rapid_mlx-0.16.4.tar.gz"
+  sha256 "54e72acdc423e81dd1be586f89a5d31b51efb24eb9f167d8e7639803417ea3c3"
   license "Apache-2.0"
-  revision 1
 
   bottle do
     sha256 cellar: :any, arm64_golden_gate: "abee5907e15db3388dc18d07bd118c90f5076c25dded8f40194a04d7a1716b6a"
@@ -19,15 +18,27 @@ class RapidMlx < Formula
   depends_on "rust" => :build
   depends_on "certifi" => :no_linkage
   depends_on "cryptography" => :no_linkage
+  depends_on "ffmpeg"
+  depends_on "libsndfile"
   depends_on "libyaml"
   depends_on macos: :sonoma
   depends_on "mlx"
   depends_on "numpy"
+  depends_on "opencv"
+  depends_on "pillow" => :no_linkage
+  depends_on "portaudio"
   depends_on "pydantic" => :no_linkage
+  depends_on "python-matplotlib" => :no_linkage
   depends_on "python@3.15"
+  depends_on "pytorch" => :no_linkage
   depends_on "rpds-py" => :no_linkage
+  depends_on "scipy" => :no_linkage
+  depends_on "torchvision" => :no_linkage
 
-  pypi_packages exclude_packages: %w[certifi cryptography mlx numpy pydantic rpds-py]
+  pypi_packages exclude_packages: %w[
+    certifi cryptography matplotlib mlx numpy opencv-python pillow pydantic rpds-py scipy torch
+    torchvision
+  ]
 
   resource "annotated-doc" do
     url "https://files.pythonhosted.org/packages/5a/8e/38aa427ed5402449e226975b649c5dc73ccadfefeb95e6aecb8f8ea4b6b6/annotated_doc-0.0.5.tar.gz"
@@ -79,6 +90,11 @@ class RapidMlx < Formula
     sha256 "4e35b956cf45792e4caa5885e69fba00bdbc6ffafbfa020300e549b208ee5ff1"
   end
 
+  resource "hf-transfer" do
+    url "https://files.pythonhosted.org/packages/1a/eb/8fc64f40388c29ce8ce3b2b180a089d4d6b25b1d0d232d016704cb852104/hf_transfer-0.1.9.tar.gz"
+    sha256 "035572865dab29d17e783fbf1e84cf1cb24f3fcf8f1b17db1cfc7fdf139f02bf"
+  end
+
   resource "hf-xet" do
     url "https://files.pythonhosted.org/packages/9e/27/06d899ea7bd721d272f84aac98bdb238de98af4cc767a69056d967d68c71/hf_xet-1.7.0.tar.gz"
     sha256 "d406ec79053c0871817f700c2ac8c36ba0d87f9c34b7458b0f0063bb218b0466"
@@ -112,6 +128,16 @@ class RapidMlx < Formula
   resource "idna" do
     url "https://files.pythonhosted.org/packages/f5/08/8eea9d4b8302028f3abb2c0813953f7aec26d33b7a8960ed760e65ff29fa/idna-3.20.tar.gz"
     sha256 "a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44"
+  end
+
+  resource "imageio" do
+    url "https://files.pythonhosted.org/packages/f3/cd/69e4ac55b6dafdd2b5f32075236841a3945dea7323d0232d80f28c37cea8/imageio-2.38.1.tar.gz"
+    sha256 "6769f1f01c4dd46448307863a787c9a22fa4dbe11c0c88f525c6e410fdfd7983"
+  end
+
+  resource "imageio-ffmpeg" do
+    url "https://files.pythonhosted.org/packages/44/bd/c3343c721f2a1b0c9fc71c1aebf1966a3b7f08c2eea8ed5437a2865611d6/imageio_ffmpeg-0.6.0.tar.gz"
+    sha256 "e2556bed8e005564a9f925bb7afa4002d82770d6b08825078b7697ab88ba1755"
   end
 
   resource "jinja2" do
@@ -159,9 +185,39 @@ class RapidMlx < Formula
     sha256 "bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"
   end
 
+  resource "mflux" do
+    url "https://files.pythonhosted.org/packages/7f/08/33ff2acce0f84e51f6c86b6a8d33b4e6703ef485a5d9c40a9e1ebe9af797/mflux-0.20.0.tar.gz"
+    sha256 "8fec3407bbc821cfba9cebd8ae55e35450b9429ec9b5445c9557aaeb78087de0"
+  end
+
+  resource "miniaudio" do
+    url "https://files.pythonhosted.org/packages/d8/d5/e5439dc08561f73656bfeb3340fc64ab63163e101426593d8fb9a025ff1e/miniaudio-1.71.tar.gz"
+    sha256 "ff51e2887bb673e2e757752b586b3dc924d59aa5fbcae9bbc45f4a111bd3262b"
+  end
+
+  resource "mlx-arsenal" do
+    url "https://files.pythonhosted.org/packages/9a/8b/c53f0be009d881daed940f5664d8562942a8c0b01ce4edce788755ffcb7c/mlx_arsenal-0.16.0.tar.gz"
+    sha256 "cd26b8c1f8467ed7f232c6544bd6fb0c275d162f6e7f40161a43bc41e9c9b3c2"
+  end
+
+  resource "mlx-audio" do
+    url "https://files.pythonhosted.org/packages/cd/a6/c75b328fc1059d0a3d56cf8330e9df6745dfe8c6ec38a3c6cfef2d42ad5f/mlx_audio-0.5.8.tar.gz"
+    sha256 "55a7378a4d27dddeba2d989f71f255ce70498b3f1c27928a8b1fb0baf3577d9e"
+  end
+
   resource "mlx-lm" do
     url "https://files.pythonhosted.org/packages/84/94/9a38d6b0c6fcca995b9136c94eb7da1e9c5165652edf228b96b29960fa7a/mlx_lm-0.31.3.tar.gz"
     sha256 "61eb0e3ba09444f77f874aff295401d7ccd20b39495cbbce0c782a15474ce733"
+  end
+
+  resource "mlx-video-with-audio" do
+    url "https://files.pythonhosted.org/packages/a0/df/91a078be06fba6ebd15752465070a133fcb49fc042e2199403641e769435/mlx_video_with_audio-0.1.36.tar.gz"
+    sha256 "6c7ea0fd31db8f3f4677f3a0650deb0b558912d889113c31fc51c812acb70c4c"
+  end
+
+  resource "mlx-vlm" do
+    url "https://files.pythonhosted.org/packages/c0/5b/7c90976c8dd038c1260873d85d0b4270948c06abc0a216f2e15fa3879e9c/mlx_vlm-0.7.2.tar.gz"
+    sha256 "6d6305cf4f82be4443c20a7dca74fc1116738ecaece42c0e3ff57ae4aea3e156"
   end
 
   resource "openai-harmony" do
@@ -177,6 +233,16 @@ class RapidMlx < Formula
   resource "packaging" do
     url "https://files.pythonhosted.org/packages/7d/fa/3944b40b07da9ce895c0e6303a5ab7d53da063554f534556b134a54d6093/packaging-26.3.tar.gz"
     sha256 "94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"
+  end
+
+  resource "piexif" do
+    url "https://files.pythonhosted.org/packages/fa/84/a3f25cec7d0922bf60be8000c9739d28d24b6896717f44cc4cfb843b1487/piexif-1.1.3.zip"
+    sha256 "83cb35c606bf3a1ea1a8f0a25cb42cf17e24353fd82e87ae3884e74a302a5f1b"
+  end
+
+  resource "platformdirs" do
+    url "https://files.pythonhosted.org/packages/80/a8/66d45abadff219e36e2a824181b8f6a67e7ed4572934d6252c71c29d5731/platformdirs-4.13.0.tar.gz"
+    sha256 "1aa0b0d3f224c1f07c295121e312a5a24a180d6ae5a8425ea1784b3e3863e9c0"
   end
 
   resource "protobuf" do
@@ -197,6 +263,11 @@ class RapidMlx < Formula
   resource "pyjwt" do
     url "https://files.pythonhosted.org/packages/43/ea/5194e52748b0da83d71e082d75496eaec6e58f419f5e184786ded517e6a9/pyjwt-2.15.1.tar.gz"
     sha256 "4f259e80cdfb6b3fc18a7de51fd1ef9ec79652f25019bae68975ca2468a34df8"
+  end
+
+  resource "pypdf" do
+    url "https://files.pythonhosted.org/packages/d5/40/08cc87810195e5ee37a6917d4b19abc907c8def3a7ce265a81c7f5073304/pypdf-6.21.0.tar.gz"
+    sha256 "c16174c8653abafbe4d023b3c9227d226938d9579ffb5a73b4fac7756c0895a6"
   end
 
   resource "python-multipart" do
@@ -244,6 +315,16 @@ class RapidMlx < Formula
     sha256 "8dbca0739d487e5bd35ab3ca4b36e11c4078f3a234bfce294b0a0291363404de"
   end
 
+  resource "sounddevice" do
+    url "https://files.pythonhosted.org/packages/ec/db/0c890e2d9aab9ba284021efc02e1d3aebfecab1b611762d7434602209bcf/sounddevice-0.5.6.tar.gz"
+    sha256 "8ec9fbfde2e32f020b167e348f3ab3bac6625a5f15af524d790108ac7147a410"
+  end
+
+  resource "soundfile" do
+    url "https://files.pythonhosted.org/packages/d2/db/949331952a6fb1c5b12e9de80fd08747966c2039d1a61db4764fbd3981c2/soundfile-0.14.0.tar.gz"
+    sha256 "ba1c1a2d618bca5c406647c83b89f07cc8810fa506a50622a6993ba130c1de11"
+  end
+
   resource "sse-starlette" do
     url "https://files.pythonhosted.org/packages/e4/be/0123026f719d1a7936f214a88b553bb5701e04ff2511147c1dab0c5035eb/sse_starlette-3.5.0.tar.gz"
     sha256 "75de713aa8a9441513cc283220826da079d982770965b951e9437720e8bafdb2"
@@ -262,6 +343,11 @@ class RapidMlx < Formula
   resource "tokenizers" do
     url "https://files.pythonhosted.org/packages/73/6f/f80cfef4a312e1fb34baf7d85c72d4411afde10978d4657f8cdd811d3ccc/tokenizers-0.22.2.tar.gz"
     sha256 "473b83b915e547aa366d1eee11806deaf419e17be16310ac0a14077f1e28f917"
+  end
+
+  resource "toml" do
+    url "https://files.pythonhosted.org/packages/be/ba/1f744cdc819428fc6b5084ec34d9b30660f6f9daaf70eead706e3203ec3c/toml-0.10.2.tar.gz"
+    sha256 "b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"
   end
 
   resource "tomli-w" do
@@ -310,11 +396,46 @@ class RapidMlx < Formula
     # `tokenizers`, `hf-xet` and `openai-harmony` build PyO3 extensions through maturin.
     ENV.append_to_rustflags "-C link-arg=-Wl,-undefined,dynamic_lookup"
 
-    venv = virtualenv_install_with_resources(without: ["hf-xet", "sentencepiece"])
+    skip_resources = %w[
+      hf-transfer
+      hf-xet
+      mflux
+      sentencepiece
+    ]
+    venv = virtualenv_install_with_resources(without: skip_resources)
+
+    # Use the declared portaudio dependency instead of sounddevice's bundled
+    # cross-platform libraries.
+    sounddevice_lib = venv.site_packages/"_sounddevice_data/portaudio-binaries"
+    rm_r sounddevice_lib
+    sounddevice_lib.mkpath
+    ln_s formula_opt_lib("portaudio")/"libportaudio.dylib", sounddevice_lib/"libportaudio.dylib"
+
+    # These formulae install their Python modules in separate virtual environments.
+    site_packages = Language::Python.site_packages(venv.root/"bin/python3")
+    (venv.site_packages/"homebrew-pytorch.pth").write "#{formula_opt_libexec("pytorch")/site_packages}\n"
+    (venv.site_packages/"homebrew-torchvision.pth").write "#{formula_opt_libexec("torchvision")/site_packages}\n"
 
     resource("sentencepiece").stage do
       # Drop the hardcoded 10.9 target; the vendored abseil needs macOS 10.13+
       inreplace "setup.py", "cflags.append('-mmacosx-version-min=10.9')", ""
+      venv.pip_install Pathname.pwd
+    end
+
+    resource("hf-transfer").stage do
+      # Use reqwest's native TLS implementation instead of the unused direct OpenSSL dependency.
+      inreplace "Cargo.toml", /^openssl = .*\n/, ""
+      venv.pip_install Pathname.pwd
+    end
+
+    resource("mflux").stage do
+      # Allow OpenCV 5 and handle its (N, 4) LineSegmentDetector output shape.
+      # Remove once a release includes https://github.com/mflux-community/mflux/pull/901
+      inreplace "pyproject.toml", '"opencv-python>=4.10.0,<5.0"', '"opencv-python>=4.10.0"'
+      inreplace "src/mflux/models/z_image/variants/controlnet/controlnet_util.py" do |s|
+        s.gsub! "for line in lines:", "for line in lines.reshape(-1, 4):"
+        s.gsub! "for v in line[0])", "for v in line)"
+      end
       venv.pip_install Pathname.pwd
     end
 
@@ -336,5 +457,9 @@ class RapidMlx < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/rapid-mlx --version")
     assert_match "qwen3.5-4b-4bit", shell_output("#{bin}/rapid-mlx info qwen3.5-4b-4bit")
+    system libexec/"bin/python", "-c", <<~PYTHON
+      import cv2, imageio_ffmpeg, torch, torchvision
+      imageio_ffmpeg.get_ffmpeg_exe()
+    PYTHON
   end
 end
